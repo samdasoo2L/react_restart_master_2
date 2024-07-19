@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
@@ -21,8 +21,9 @@ const Header = styled.h1`
 const CoinList = styled.ul``;
 
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.textBoxColor};
+  color: ${(props) => props.theme.textColor};
+  font-weight: 400;
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -40,6 +41,7 @@ const Coin = styled.li`
 
 const Title = styled.h1`
   font-size: 48px;
+  font-weight: bold;
   color: ${(props) => props.theme.accentColor};
 `;
 
@@ -89,10 +91,10 @@ function Coins() {
   return (
     <Container>
       <Helmet>
-        <title>코인</title>
+        <title>COIN</title>
       </Helmet>
       <Header>
-        <Title>코인</Title>
+        <Title>COIN</Title>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>

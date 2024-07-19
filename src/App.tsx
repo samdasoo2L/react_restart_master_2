@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./theme";
+import ThemeButton from "./components/ThemeButton";
+import { useState } from "react";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -68,12 +72,19 @@ a {
 `;
 
 function App() {
+  const [theme, setThemes] = useState(true);
+  const onClick = () => {
+    setThemes(!theme);
+  };
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      {/* 리액트 쿼리로 받아온 내용들을 볼수있게 해줌! 시각화! */}
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ThemeProvider theme={theme ? lightTheme : darkTheme}>
+        <GlobalStyle />
+        <ThemeButton theme={theme} onClick={onClick} />
+        <Router />
+        {/* 리액트 쿼리로 받아온 내용들을 볼수있게 해줌! 시각화! */}
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 }

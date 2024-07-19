@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Helmet } from "react-helmet";
 import {
@@ -15,6 +15,7 @@ import Chart from "./Chart";
 import Price from "./Price";
 
 const Container = styled.div`
+  position: relative;
   padding: 0px 20px;
   max-width: 480px;
   margin: 0 auto;
@@ -29,7 +30,19 @@ const Header = styled.h1`
 
 const Title = styled.h1`
   font-size: 48px;
+  font-weight: bold;
   color: ${(props) => props.theme.accentColor};
+`;
+
+const Home = styled.div`
+  position: absolute;
+  left: 20px;
+  top: 25px;
+  color: ${(props) => props.theme.accentColor};
+  font-size: 30px;
+  a {
+    font-weight: bold;
+  }
 `;
 
 const Loader = styled.span`
@@ -40,9 +53,11 @@ const Loader = styled.span`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.textBoxColor};
+  color: ${(props) => props.theme.textColor};
   padding: 10px 20px;
   border-radius: 10px;
+  margin-bottom: 15px;
 `;
 const OverviewItem = styled.div`
   display: flex;
@@ -56,13 +71,13 @@ const OverviewItem = styled.div`
   }
 `;
 const Description = styled.p`
-  margin: 20px 0px;
+  margin: 0px 0px;
 `;
 
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 25px 0px;
+  margin: 0px 0px 25px 0px;
   gap: 10px;
 `;
 
@@ -72,7 +87,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.textBoxColor};
   border-radius: 10px;
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
@@ -188,7 +203,9 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
-        <Link to="/">gotohome</Link>
+        <Home>
+          <Link to="/">←</Link>
+        </Home>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -208,7 +225,9 @@ function Coin() {
               <span>{tickersData?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
-          <Description>{infoData?.description}</Description>
+          <Overview>
+            <Description>{infoData?.description}</Description>
+          </Overview>
           <Overview>
             <OverviewItem>
               <span>Total Suply:</span>
